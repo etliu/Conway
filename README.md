@@ -8,3 +8,5 @@ hit the spacebar to pause/play cell generations
 click (and drag) to toggle cells
 
 use 1-9 to change the speed
+
+hit 'c' to clear the board

@@ -8,7 +8,8 @@ var update;
 var cursorX;
 var cursorY;
 var mousedown;
-var selectMap = []
+var selectMap = [];
+var colorMap = [];
 
 function mod(n) {
     return ((n % boardsize) + boardsize) % boardsize;
@@ -21,6 +22,7 @@ window.onload = function() {
     update = false;
     CANVAS.height = CANVAS.clientHeight;
     CANVAS.width = CANVAS.clientHeight;
+    populateColorMap();
 
     document.addEventListener("mousedown", function() {
         mousedown = 1;
@@ -46,14 +48,8 @@ window.onload = function() {
     }
 
     function clearBoard() {
-        gameboard = []
-        for (var i = 0; i < boardsize; i++) {
-            temp = [];
-            for (var j = 0; j < boardsize; j++) {
-                temp.push(0);
-            }
-            gameboard.push(temp);
-        }
+        var emptyrow = new Array(boardsize).fill(0);
+        for(var i=0; i < boardsize; i++) gameboard.push(emptyrow.slice())
     }
     clearBoard();
     document.onkeyup = function(e) {
@@ -99,12 +95,22 @@ function drawBoard() {
             ctx.fillStyle = "#EEEEEE";
             ctx.fillRect(i * cellsize, j * cellsize, cellsize, cellsize);
             if (gameboard[i][j]) {
-                ctx.fillStyle = gradient(i, j);
+                ctx.fillStyle = colorMap[i][j];
                 ctx.fillRect(i * cellsize, j * cellsize, cellsize, cellsize);
             }
             ctx.strokeStyle = "#FFFFFF";
             ctx.strokeRect(i * cellsize, j * cellsize, cellsize, cellsize);
         }
+    }
+}
+
+function populateColorMap() {
+    for (var i = 0; i < boardsize; i++) {
+        var row = [];
+        for (var j = 0; j < boardsize; j++) {
+            row.push(gradient(i, j));
+        }
+        colorMap.push(row);
     }
 }
 

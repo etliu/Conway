@@ -3,10 +3,29 @@
 <head>
     <title>Conway's Game of Life</title>
     <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fira Sans', sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="cv" style="width: 95vh; height: 95vh; margin:0 auto 0 auto; display: block"></canvas>
+    <div class="container">
+        <div class="gameboard" style="display:inline-block">
+            <canvas id="cv" style="width: 85vh; height: 85vh;"></canvas>
+        </div>
+        <div id="instructions" style="display:inline-block; text-align:left; position:absolute"></div>
+    </div>
+    <script>
+        document.getElementById('instructions').innerHTML =
+        marked('# Instructions:\n\nClick and drag tiles to set the initial state.\n\nHit __space__ to start/stop generations.\n\nUse __1-9__ to control the generation speed.\n\n Hit __c__ to clear the board.');
+    </script>
 </body>
 
 </html>
